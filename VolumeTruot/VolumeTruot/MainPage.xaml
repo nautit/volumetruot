@@ -2,10 +2,60 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:VolumeTruot"
-             x:Class="VolumeTruot.MainPage">
+             x:Class="VolumeTruot.MainPage"
+             BackgroundImage="bg.jpg">
+   
+    <Grid BackgroundColor="Black">
+        <!--3 hang x 4 cot-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-	<Label Text="Welcome to Xamarin Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+        <Image x:Name="x_thanhtruot" Source="thanhtruot.png" VerticalOptions="End" Grid.Row="0" Grid.Column="0"/>
+        <StackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="FillAndExpand">
+            <Image x:Name="x_Volume" Source="nuttruot.png" WidthRequest="50" HeightRequest="50">
+                <Image.GestureRecognizers>
+                    <PanGestureRecognizer PanUpdated="OnPanVolume"/>
+                </Image.GestureRecognizers>-->
+            </Image>
+        </StackLayout>
+        <Image Source="thanhtruot.png" VerticalOptions="End" Grid.Row="0" Grid.Column="1"/>
+        <Image Source="thanhtruot.png" VerticalOptions="End" Grid.Row="0" Grid.Column="2"/>
+        <Image Source="thanhtruot.png" VerticalOptions="End" Grid.Row="0" Grid.Column="3"/>
 
+        <!--<Image x:Name="x_Bass" Source="nut.png" Grid.Row="0" Grid.Column="1">
+            <Image.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="OnPanBass"/>
+            </Image.GestureRecognizers>
+        </Image>
+
+        <Image x:Name="x_Middle" Source="nut.png" Grid.Row="0" Grid.Column="2">
+            <Image.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="OnPanMiddle" />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <Image x:Name="x_Treble" Source="nut.png" Grid.Row="0" Grid.Column="3">
+            <Image.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="OnPanTreble" />
+            </Image.GestureRecognizers>
+        </Image>-->
+
+        <Label x:Name="x_value_Volume" Text="00" Grid.Row="1" Grid.Column="0" TextColor="White" HorizontalOptions="Center"/>
+        <Label x:Name="x_value_Bass" Text="00" Grid.Row="1" Grid.Column="1" TextColor="White" HorizontalOptions="Center"/>
+        <Label x:Name="x_value_Middle" Text="00" Grid.Row="1" Grid.Column="2" TextColor="White" HorizontalOptions="Center"/>
+        <Label x:Name="x_value_Treble" Text="00" Grid.Row="1" Grid.Column="3" TextColor="White" HorizontalOptions="Center"/>
+        <Label Text="VOLUME" Grid.Row="2" Grid.Column="0" TextColor="White" HorizontalOptions="Center"/>
+        <Label Text="BASS" Grid.Row="2" Grid.Column="1" TextColor="White" HorizontalOptions="Center"/>
+        <Label Text="MIDDLE" Grid.Row="2" Grid.Column="2" TextColor="White" HorizontalOptions="Center"/>
+        <Label Text="TREBLE" Grid.Row="2" Grid.Column="3" TextColor="White" HorizontalOptions="Center"/>
+    </Grid>
 </ContentPage>
