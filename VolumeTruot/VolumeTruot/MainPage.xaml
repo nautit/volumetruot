@@ -5,10 +5,10 @@
              x:Class="VolumeTruot.MainPage"
              BackgroundImage="bg.jpg">
    
-    <Grid BackgroundColor="Black">
+    <Grid BackgroundColor="Black" x:Name="x_grid">
         <!--3 hang x 4 cot-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="8.5*"/>
+            <RowDefinition x:Name="x_hang_dau" Height="8.5*"/>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
@@ -19,9 +19,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Image x:Name="x_thanhtruot" Source="thanhtruot.png" VerticalOptions="End" Grid.Row="0" Grid.Column="0"/>
-        <StackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="FillAndExpand">
-            <Image x:Name="x_Volume" Source="nuttruot.png" WidthRequest="50" HeightRequest="50">
+        <Image x:Name="x_thanhtruot" Source="thanhtruot.png" VerticalOptions="Fill" Grid.Row="0" Grid.Column="0" SizeChanged="x_thanhtruot_SizeChanged"/>
+        <StackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="Fill">
+            <Image x:Name="x_Volume" Source="nuttruot.png" WidthRequest="50" HeightRequest="50" SizeChanged="x_Volume_SizeChanged">
                 <Image.GestureRecognizers>
                     <PanGestureRecognizer PanUpdated="OnPanVolume"/>
                 </Image.GestureRecognizers>-->
