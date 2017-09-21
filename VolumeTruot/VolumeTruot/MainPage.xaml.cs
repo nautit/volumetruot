@@ -13,6 +13,11 @@ namespace VolumeTruot
         static double old_change,volume_min,volume_max,volume,volume_step,volume_half_step = 0;
         static double BMT_step,BMT_half_step,bass,middle,treble = 0;
 
+        private async void OnPanTreble(object sender, PanUpdatedEventArgs e)
+        {
+            await x_Treble.TranslateTo(0, e.TotalY);
+        }
+        
         private async void OnPanBass(object sender, PanUpdatedEventArgs e)
         {
             switch (e.StatusType)
@@ -66,40 +71,15 @@ namespace VolumeTruot
             }
         }
 
-        private async void OnPanTreble(object sender, PanUpdatedEventArgs e)
-        {
-            switch (e.StatusType)
-            {
-                case GestureStatus.Running:
-                    if ((Math.Abs(e.TotalY - old_change) > 3) && (Math.Abs(e.TotalY - old_change) < 20))
-                    {
-                        treble += e.TotalY;
-                        if (treble > volume_min) treble = volume_min;
-                        if (treble < volume_max) treble = volume_max;
-                        await x_Treble.TranslateTo(0, treble, 200, Easing.Linear);
-                    }
-                    old_change = e.TotalY;
-                    break;
-
-                case GestureStatus.Completed:
-                    double treble_surplus = treble % BMT_step;//lấy phần dư
-                    double treble_value = 14 - (treble - treble_surplus) / BMT_step;
-                    if (treble_surplus > BMT_half_step)
-                        treble_value += 1;
-                    x_value_Treble.Text = treble_value.ToString();
-                    break;
-            }
-        }
-
         private void x_nuttruot_SizeChanged(object sender, EventArgs e)
         {
             volume_min -= x_Volume.Height;
-            volume = volume_min;
+            volume = bass = middle = treble = volume_min;
             volume_step = volume_min / 40;
             volume_half_step = volume_step / 2;
             BMT_step = volume_min / 14;
             BMT_half_step = BMT_step / 2;
-            x_Volume.TranslationY = x_Bass.TranslationY = x_Treble.TranslationY = x_Middle.TranslationY = volume_min;
+            x_Volume.TranslationY = x_Bass.TranslationY = x_Middle.TranslationY = x_Treble.TranslationY = volume_min;
         }
 
         
@@ -122,14 +102,15 @@ namespace VolumeTruot
                     old_change = 0;
                     break;
                 case GestureStatus.Running:
-                    if (Math.Abs(e.TotalX) > 20) break;
+                    if (Math.Abs(e.TotalX) > 20 || Math.Abs(e.TotalY)>40) break;
                     if ((Math.Abs(e.TotalY-old_change) > 3) && (Math.Abs(e.TotalY-old_change) < 20))
                     {
                         volume += e.TotalY; 
                         if (volume > volume_min) volume = volume_min;
                         if (volume < volume_max) volume = volume_max;
-                        await x_Volume.TranslateTo(0, volume, 100,Easing.Linear);
+                        
                     }
+                    await x_Volume.TranslateTo(0, volume, 100, Easing.Linear);
                     old_change = e.TotalY;
                     break;
 
